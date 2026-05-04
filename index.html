@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="site-title-meta">TestQuere Premium - ระบบจัดการคิวงาน</title>
+    <title id="site-title-meta">Dino Shop - ระบบจัดการคิวงาน</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -541,33 +541,40 @@
 
 
     <script>
-        // Data default template
+        // Data default template (พร้อมใส่รูปภาพสมบูรณ์)
         const SYSTEM_DEFAULT_DATA = {
-            password: "admin",
-            siteName: "TestQuere Premium",
-            siteDesc: "ระบบจัดการคิวงานอัจฉริยะ รองรับระบบบันทึกรายได้และ 3D Portfolio",
-            coverUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+            password: "2212",
+            siteName: "Check Queue",
+            siteDesc: "ระบบจัดการคิวงานของร้าน Dino Shop",
+            
+            // รูปปกภาพพื้นหลังด้านบน
+            coverUrl: "https://media.discordapp.net/attachments/1476817623537684541/1500818149204033626/eff44698-080b-4ade-b036-9c9068c46fa9.png?ex=69f9d152&is=69f87fd2&hm=c8d1a579370302a1e0b261e05a314ca9c50f85122f63c02b82b930fcade283b6&=&format=webp&quality=lossless&width=1455&height=692",
             coverOffsetY: "50%",
-            profileUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
-            announcement: "ประกาศสั้นๆ หน้าระบบ: เปิดรับสมัครคิวรอบใหม่ประจำเดือนพฤษภาคม!",
+            
+            // รูปโปรไฟล์
+            profileUrl: "https://media.discordapp.net/attachments/1476817623537684541/1497412515125264516/0f1a5ad7-fe4c-4910-a69f-9d0ef6154d7f_1.png?ex=69f94b14&is=69f7f994&hm=7435fe566c49d9f63f6cd9b1d209b449b765dc5ec25cebd5c51ea87e9217a5ad&=&format=webp&quality=lossless&width=891&height=891",
+            
+            announcement: "ประกาศสั้นๆ หน้าระบบ: เปิดรับสมัครคิวรอบใหม่!",
             queueStatus: "OPEN",
-            tos: "1. สนใจติดต่อจองคิวงานผ่านช่องทางที่ลงไว้ได้เลยค่ะ\n2. โอนมัดจำขั้นต่ำ 50% ทุกครั้งหลังสรุปบรีฟงานแล้ว\n3. ขออนุญาตไม่รับแก้ไขงานหลังจากลงสีจริงแล้ว",
-            timeline: "ปกติใช้ระยะเวลา 7-14 วันต่อคิวงาน (ขึ้นอยู่กับระดับความละเอียดของชิ้นงาน)",
-            paymentInfo: "ธนาคารกสิกรไทย (K-Bank)\nเลขบัญชี: 123-4-56789-0\nชื่อบัญชี: คุณมั่งคั่ง ร่ำรวย",
-            socials: { fb: "", ig: "", line: "", x: "", vgen: "", da: "", discord: "", tiktok: "" },
-            theme: { preset: 'pink', bgEffect: 'bg-effect-stars', primary: '#ec4899', secondary: '#0f172a' },
+            tos: "1. สนใจติดต่อจองคิวงานผ่านช่องทางที่ลงไว้ได้เลยครับ\n2. บรีฟไม่ระเอียดถ้าจะแก้ + เพิ่มตามราคางานนะครับ\n3. ขออนุญาตไม่รับแก้ไขงานหลังจากทำเสร็จจริงแล้ว",
+            timeline: "ปกติใช้ระยะเวลา 1-3 วันต่อคิวงาน (ขึ้นอยู่กับระดับความละเอียดของชิ้นงาน)",
+            paymentInfo: "ธนาคารกสิกรไทย (K-Bank)\nเลขบัญชี: 230-3-21237-2\nชื่อบัญชี: นาย ศิรวิทย์ ปัญจะมี",
+            socials: { fb: "https://www.facebook.com/share/1AvWGHHjGL/", discord: "https://discord.gg/eHcpuwJyvF", },
+            theme: { preset: 'purple', bgEffect: 'bg-effect-stars', primary: '#ec4899', secondary: '#0f172a' },
+            
+            // รายการรูปภาพสำหรับ 3D Portfolio ทั้ง 6 ภาพ
             portfolio: [
-                "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1560972550-aba3456b5564?auto=format&fit=crop&w=300&q=80",
-                "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80"
+                "https://media.discordapp.net/attachments/1497215909193060542/1499433051380256930/932_20260430190552.png?ex=69f96499&is=69f81319&hm=a0feaf9b3aacef7e7692279d8a845e63a4aef3f75329f8a17a853a3f73ea58c0&=&format=webp&quality=lossless&width=974&height=974",
+                "https://media.discordapp.net/attachments/1497215909193060542/1499051661686210783/932_20260429211555.png?ex=69f952e7&is=69f80167&hm=7c6ede223a07e06ce475d140f0fd1d41e95ae6dd9a6b5b66a629ef48fb7172b1&=&format=webp&quality=lossless&width=974&height=974",
+                "https://media.discordapp.net/attachments/1497216074624794746/1498942228507263058/932_20260429091347.png?ex=69f995bc&is=69f8443c&hm=6dcb8ebb2e811e030d47d4a23daded8682d8a6ae54d348e7d4335541d7d22d5f&=&format=webp&quality=lossless&width=974&height=974",
+                "https://media.discordapp.net/attachments/1497215974682919023/1497974303684169758/932_20260426213326.png?ex=69f95c09&is=69f80a89&hm=52e6d6884b7ea514ed3e8ca4a0e0d4c1fad1552d65875290c49a8c05811c5e05&=&format=webp&quality=lossless&width=280&height=280",
+                "https://media.discordapp.net/attachments/1497215909193060542/1498489601977745428/932_20260427213522.png?ex=69f941b1&is=69f7f031&hm=c9207574f5e47a6d0d30ba88707652f5772e80fc1fbbd14699acbdd54aff0bc5&=&format=webp&quality=lossless&width=974&height=974",
+                "https://media.discordapp.net/attachments/1497215909193060542/1497760387284729988/932_20260426074407.png?ex=69f93d8f&is=69f7ec0f&hm=5be89c6eb7d4ea45f8ed560cbcd2777be0f00fcc191d8bb159c4ee27ef054503&=&format=webp&quality=lossless&width=974&height=974"
             ],
             speed3d: 20,
             queues: [
-                { id: "1", number: 1, name: "คุณส้ม", job: "Full Body Illustration", contact: "FB: Orange", desc: "วาดตัวละครผู้หญิง ถือกระเป๋า", date: "2026-05-10", plan: "2026-05", price: 1000, deposit: 500, balance: 500, status: "กำลังดำเนินการ", isUrgent: true, archived: false },
-                { id: "2", number: 2, name: "คุณเบิร์ด", job: "Live2D Model", contact: "Twitter: @bird", desc: "โมเดล Chibi 3D สไตล์น่ารัก", date: "2026-06-20", plan: "2026-06", price: 2000, deposit: 2000, balance: 0, status: "เสร็จสิ้นแล้ว", archived: false }
+                { id: "1", number: 1, name: "คุณไคเซ็น", job: "ดิสสำเร็จ", contact: "Discord", desc: "ดิสสำเร็จ", date: "2026-05-10", plan: "2026-05", price: 1000, deposit: 500, balance: 500, status: "กำลังดำเนินการ", isUrgent: true, archived: false },
+                { id: "2", number: 2, name: "คุณไดโน", job: "ดิสส่วนตัว", contact: "Discord", desc: "ดิสส่วนตัว", date: "2026-06-20", plan: "2026-06", price: 2000, deposit: 2000, balance: 0, status: "เสร็จสิ้นแล้ว", archived: false }
             ]
         };
 
@@ -694,9 +701,9 @@
             document.getElementById('payment-display-block').innerText = localData.paymentInfo;
 
             // Load visual imagery URLs
-            document.getElementById('cover-display-img').src = localData.coverUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            document.getElementById('cover-display-img').src = localData.coverUrl;
             document.getElementById('cover-display-img').style.objectPosition = `50% ${localData.coverOffsetY || '50%'}`;
-            document.getElementById('profile-display-img').src = localData.profileUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb';
+            document.getElementById('profile-display-img').src = localData.profileUrl;
 
             // Top Status badge logic
             const badgeEl = document.getElementById('nav-status-badge');
