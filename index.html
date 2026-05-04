@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Queue System </title>
+    <title id="site-title-meta">TestQuere Premium - ระบบจัดการคิวงาน</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { font-family: 'Kanit', sans-serif; }
+        /* CSS Background Effects 13 แบบ */
         .bg-effect-stars {
             background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px), radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
             background-size: 550px 550px, 350px 350px;
@@ -20,170 +31,185 @@
             from { background-position: 0 0, 40px 60px; }
             to { background-position: 550px 550px, 390px 410px; }
         }
-        /* 3D Portfolio */
-        .slider-3d {
+        .bg-effect-dots {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .bg-effect-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* 3D Slider Portfolio */
+        .slider-3d-box {
             position: relative;
-            width: 200px;
-            height: 250px;
+            width: 180px;
+            height: 240px;
             transform-style: preserve-3d;
             animation: rotate3d var(--speed, 20s) linear infinite;
         }
-        .slider-3d:hover { animation-play-state: paused; }
+        .slider-3d-box:hover { animation-play-state: paused; }
         @keyframes rotate3d {
             from { transform: perspective(1000px) rotateY(0deg); }
             to { transform: perspective(1000px) rotateY(360deg); }
         }
-        .slider-3d span {
+        .slider-3d-box span {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             transform-origin: center;
             transform-style: preserve-3d;
-            transform: rotateY(calc(var(--i) * 60deg)) translateZ(250px);
-            -webkit-box-reflect: reflect below 0px linear-gradient(transparent, transparent, #0004);
+            transform: rotateY(calc(var(--i) * 60deg)) translateZ(220px);
+            -webkit-box-reflect: reflect below 2px linear-gradient(transparent, transparent, #0002);
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen relative overflow-x-hidden transition-colors duration-500" id="body-layout">
+<body class="bg-[#0f172a] text-slate-100 min-h-screen relative overflow-x-hidden transition-all duration-300 select-none" id="main-layout">
 
-    <nav class="bg-slate-800/80 backdrop-blur-md border-b border-slate-700 sticky top-0 z-50 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-crown text-amber-400 text-2xl" id="site-icon-preview"></i>
-                <span class="font-bold text-xl tracking-wider" id="nav-site-name">Queue System</span>
-                <span class="bg-amber-500 text-slate-950 text-xs font-extrabold px-2 py-0.5 rounded shadow" id="badge-status">OPEN</span>
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 px-4 py-3.5">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-amber-500 flex items-center justify-center shadow-lg shadow-pink-500/20" id="site-icon-bg">
+                    <i class="fa-solid fa-crown text-slate-950 text-lg" id="site-nav-icon"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-lg tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300" id="nav-site-name">TestQuere</span>
+                        <span class="bg-emerald-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow" id="nav-status-badge">OPEN</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-light uppercase tracking-wider" id="nav-sub-title">Premium Management</p>
+                </div>
             </div>
             
-            <div class="flex items-center gap-3">
-                <button onclick="toggleLanguage()" class="bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-1 border border-slate-600 transition">
-                    <i class="fa-solid fa-globe"></i> <span id="lang-btn">TH/EN</span>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleLang()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-globe"></i> <span id="btn-lang-text">TH/EN</span>
                 </button>
                 
-                <button onclick="openLoginModal()" id="admin-mode-btn" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-1 shadow-lg transition">
-                    <i class="fa-solid fa-lock"></i> <span id="nav-admin-text">แอดมิน</span>
+                <button onclick="openLoginModal()" id="btn-admin-login" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 transition">
+                    <i class="fa-solid fa-user-shield"></i> <span id="btn-admin-text">แอดมิน</span>
                 </button>
-                <button onclick="logoutAdmin()" id="logout-btn" class="hidden bg-rose-600 hover:bg-rose-500 px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-1 shadow-lg transition">
-                    <i class="fa-solid fa-sign-out-alt"></i> <span id="nav-logout-text">ออกระบบ</span>
+                <button onclick="logoutAdmin()" id="btn-admin-logout" class="hidden bg-rose-600 hover:bg-rose-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg shadow-rose-600/20 transition">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span id="btn-logout-text">ออกระบบ</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <div id="site-announcement-area" class="bg-amber-500/10 border-b border-amber-500/30 text-center py-2 px-4 text-amber-200 text-sm hidden">
-        <i class="fa-solid fa-bullhorn mr-2"></i> <span id="site-announcement-text">ยินดีต้อนรับสู่ระบบรับคิวงาน Kaizen Shop</span>
+    <div id="announcement-bar" class="bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border-b border-amber-500/30 text-center py-2 px-4 text-amber-200 text-xs font-medium tracking-wide hidden">
+        <i class="fa-solid fa-bullhorn mr-2 animate-bounce"></i> <span id="announcement-text">ประกาศหน้าเว็บ</span>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
 
         <section class="space-y-6">
-            <div class="relative w-full h-48 sm:h-64 rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 shadow-xl group">
-                <img id="cover-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" 
-                     class="w-full h-full object-cover transition-transform duration-100 cursor-move" 
+            <div class="relative w-full h-48 sm:h-72 rounded-3xl overflow-hidden bg-slate-800 border border-slate-800/80 shadow-2xl group">
+                <img id="cover-display-img" src="" 
+                     class="w-full h-full object-cover transition-transform duration-75 cursor-move" 
                      style="object-position: 50% 50%;"
                      onmousedown="startDragCover(event)" ontouchstart="startDragCover(event)">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
-                <div id="cover-drag-guide" class="absolute top-4 right-4 bg-black/60 px-3 py-1 rounded text-xs text-slate-300 hidden">
-                    <i class="fa-solid fa-arrows-up-down"></i> ลากเพื่อปรับตำแหน่งภาพปก
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                <div id="cover-drag-notice" class="absolute top-4 right-4 bg-slate-950/80 backdrop-blur border border-slate-800 px-3 py-1.5 rounded-xl text-[11px] text-slate-300 items-center gap-1.5 transition hidden">
+                    <i class="fa-solid fa-arrows-up-down text-pink-400"></i> ลากเพื่อเลื่อนองค์ประกอบภาพปก
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row gap-6 items-center md:items-end -mt-16 relative z-10 px-4">
-                <div class="relative group">
-                    <img id="profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" 
-                         class="w-32 h-32 rounded-full border-4 border-slate-900 object-cover bg-slate-800 shadow-2xl">
+            <div class="flex flex-col md:flex-row gap-6 items-center md:items-end -mt-20 relative z-10 px-4">
+                <div class="relative">
+                    <img id="profile-display-img" src="" 
+                         class="w-32 h-32 rounded-3xl border-4 border-slate-950 bg-slate-800 object-cover shadow-2xl transition transform hover:scale-105 duration-300">
                 </div>
                 <div class="text-center md:text-left flex-1 space-y-2">
-                    <h1 id="site-name-display" class="text-3xl font-extrabold tracking-tight">Queue Premium Space</h1>
-                    <p id="site-desc-display" class="text-slate-400 max-w-xl">ระบบรับคิวงานวาดและงานออกแบบคุณภาพสูง ปรับแต่งธีมได้อิสระ</p>
+                    <h1 id="site-title-h1" class="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">TestQuere Premium</h1>
+                    <p id="site-desc-p" class="text-slate-400 text-sm max-w-xl font-light">ระบบจัดการคิวงานอัจฉริยะ รองรับระบบบันทึกรายได้และ 3D Portfolio</p>
                     
-                    <div class="flex flex-wrap justify-center md:justify-start gap-2 pt-2" id="social-links-area">
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2 pt-1" id="social-links-container">
                         </div>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="openPaymentModal()" class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 rounded-xl font-bold shadow-lg flex items-center gap-2 transition transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-wallet"></i> <span id="btn-payment-info">ช่องทางชำระเงิน</span>
+                    <button onclick="openPaymentModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-emerald-600/20 flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-wallet"></i> <span id="btn-payment-trigger">ช่องทางชำระเงิน</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <section class="py-6 flex flex-col items-center">
-            <h2 class="text-xl font-bold mb-10 text-center flex items-center gap-2" id="title-portfolio">
-                <i class="fa-solid fa-images text-indigo-400"></i> ผลงานล่าสุด (3D Portfolio)
+        <section class="py-4 flex flex-col items-center">
+            <h2 class="text-lg font-bold mb-10 text-center flex items-center gap-2 text-white" id="title-portfolio-3d">
+                <i class="fa-solid fa-cube text-pink-500"></i> ผลงานล่าสุด (3D Portfolio)
             </h2>
-            <div class="h-[320px] flex items-center justify-center overflow-hidden w-full max-w-lg">
-                <div class="slider-3d" id="portfolio-3d-slider" style="--speed: 20s;">
+            <div class="h-[280px] flex items-center justify-center overflow-hidden w-full max-w-lg">
+                <div class="slider-3d-box" id="portfolio-3d-wrapper" style="--speed: 20s;">
                     </div>
             </div>
         </section>
 
         <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-slate-800/50 backdrop-blur border border-slate-700/50 p-5 rounded-2xl shadow-lg space-y-3">
-                <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-clipboard-list"></i> <span id="title-tos">ข้อตกลงและเงื่อนไข</span>
+            <div class="bg-slate-900/50 backdrop-blur border border-slate-800/60 p-6 rounded-2xl shadow-xl space-y-3.5">
+                <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-paperclip"></i> <span id="title-tos-head">ข้อตกลงและเงื่อนไข</span>
                 </h3>
-                <div id="display-tos-text" class="text-slate-300 text-sm whitespace-pre-line leading-relaxed">
-                    1. รับเฉพาะงานเชิงพาณิชย์และส่วนตัวตามที่แจ้ง
-                    2. จ่ายมัดจำ 50% ก่อนเริ่มงาน
+                <div id="tos-display-text" class="text-slate-300 text-xs whitespace-pre-line leading-relaxed font-light">
+                    - ข้อตกลงการทำงาน
                 </div>
             </div>
-            <div class="bg-slate-800/50 backdrop-blur border border-slate-700/50 p-5 rounded-2xl shadow-lg space-y-3">
-                <h3 class="text-lg font-bold text-emerald-400 flex items-center gap-2">
-                    <i class="fa-solid fa-hourglass-half"></i> <span id="title-timeline">ระยะเวลาการทำงาน</span>
+            <div class="bg-slate-900/50 backdrop-blur border border-slate-800/60 p-6 rounded-2xl shadow-xl space-y-3.5">
+                <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-clock"></i> <span id="title-timeline-head">ระยะเวลาการทำงาน</span>
                 </h3>
-                <div id="display-time-text" class="text-slate-300 text-sm whitespace-pre-line leading-relaxed">
-                    ปกติใช้เวลา 7-14 วันต่อคิวงาน ขึ้นอยู่กับความละเอียดของงาน
+                <div id="timeline-display-text" class="text-slate-300 text-xs whitespace-pre-line leading-relaxed font-light">
+                    - ระยะเวลาส่งงาน
                 </div>
             </div>
         </section>
 
-        <hr class="border-slate-700/50">
+        <hr class="border-slate-800/60">
 
         <section class="space-y-6">
             <div class="flex flex-wrap justify-between items-center gap-4">
                 <div>
-                    <h2 class="text-2xl font-extrabold flex items-center gap-2">
-                        <i class="fa-solid fa-list-ol text-pink-500"></i> <span id="title-queue-list">ตารางคิวงาน</span>
+                    <h2 class="text-2xl font-extrabold flex items-center gap-2 text-white">
+                        <i class="fa-solid fa-layer-group text-pink-500"></i> <span id="title-queue-header">ตารางคิวงาน</span>
                     </h2>
-                    <p class="text-slate-400 text-sm" id="desc-queue-view">อัปเดตข้อมูลความคืบหน้าของคิวงานทั้งหมดที่นี่</p>
+                    <p class="text-slate-400 text-xs font-light mt-0.5" id="desc-queue-header">อัปเดตข้อมูลความคืบหน้าของคิวงานทั้งหมด</p>
                 </div>
 
-                <div id="admin-actions-area" class="hidden flex flex-wrap gap-2">
-                    <button onclick="openAddQueueModal()" class="bg-pink-600 hover:bg-pink-500 px-4 py-2 rounded-xl text-sm font-bold shadow-lg transition flex items-center gap-1">
-                        <i class="fa-solid fa-plus"></i> <span id="btn-add-queue">เพิ่มคิวงาน</span>
+                <div id="admin-action-controls" class="hidden flex flex-wrap gap-2">
+                    <button onclick="openQueueFormModal()" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg shadow-pink-600/20 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> <span id="btn-add-queue-text">เพิ่มคิวงาน</span>
                     </button>
-                    <button onclick="openConfigModal()" class="bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-xl text-sm font-bold shadow-lg transition flex items-center gap-1">
-                        <i class="fa-solid fa-sliders"></i> <span id="btn-setting">ตั้งค่าทั่วไป</span>
+                    <button onclick="openConfigModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2.5 rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-sliders"></i> <span id="btn-config-text">ตั้งค่าทั่วไป</span>
                     </button>
-                    <button onclick="openThemeModal()" class="bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-xl text-sm font-bold shadow-lg transition flex items-center gap-1">
-                        <i class="fa-solid fa-palette"></i> <span id="btn-theme-setting">ธีม & เอฟเฟกต์</span>
+                    <button onclick="openThemeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2.5 rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="btn-theme-text">ธีม & เอฟเฟกต์</span>
                     </button>
                 </div>
             </div>
 
-            <div id="admin-revenue-dashboard" class="hidden bg-slate-800/80 border border-slate-700 p-5 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <div>
-                    <h4 class="text-xs text-slate-400 uppercase" id="rev-total-month">รายรับรวมเดือนนี้</h4>
-                    <p class="text-2xl font-bold text-emerald-400 mt-1" id="val-rev-month">฿0.00</p>
+            <div id="admin-revenue-dashboard" class="hidden bg-slate-900/80 border border-slate-800 p-5 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="p-2">
+                    <h4 class="text-[10px] text-slate-400 uppercase tracking-wider" id="rev-lbl-month">รายรับรวมเดือนนี้</h4>
+                    <p class="text-2xl font-bold text-emerald-400 mt-1" id="rev-val-month">฿0.00</p>
                 </div>
-                <div>
-                    <h4 class="text-xs text-slate-400 uppercase" id="rev-total-year">รายรับรวมปีนี้</h4>
-                    <p class="text-2xl font-bold text-indigo-400 mt-1" id="val-rev-year">฿0.00</p>
+                <div class="p-2 border-slate-800 sm:border-x">
+                    <h4 class="text-[10px] text-slate-400 uppercase tracking-wider" id="rev-lbl-year">รายรับรวมปีนี้</h4>
+                    <p class="text-2xl font-bold text-indigo-400 mt-1" id="rev-val-year">฿0.00</p>
                 </div>
-                <div>
-                    <h4 class="text-xs text-slate-400 uppercase" id="rev-archived">ยอดสะสมในคลัง (Archive)</h4>
-                    <p class="text-2xl font-bold text-amber-400 mt-1" id="val-rev-archive">฿0.00</p>
+                <div class="p-2">
+                    <h4 class="text-[10px] text-slate-400 uppercase tracking-wider" id="rev-lbl-archive">ยอดสะสมในคลัง (Archive)</h4>
+                    <p class="text-2xl font-bold text-amber-400 mt-1" id="rev-val-archive">฿0.00</p>
                 </div>
             </div>
 
-            <div class="flex flex-wrap gap-2 items-center bg-slate-800/40 p-3 rounded-xl border border-slate-700/50">
+            <div class="flex flex-wrap gap-2 items-center bg-slate-900/40 p-3.5 rounded-2xl border border-slate-800/60">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-calendar text-slate-400 ml-1"></i>
-                    <select id="filter-year" onchange="renderQueueTable()" class="bg-slate-700 border border-slate-600 text-slate-200 text-sm rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <select id="filter-year-select" onchange="renderQueueTable()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
                     </select>
-                    <select id="filter-month" onchange="renderQueueTable()" class="bg-slate-700 border border-slate-600 text-slate-200 text-sm rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <select id="filter-month-select" onchange="renderQueueTable()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
                         <option value="all">ทุกเดือน</option>
                         <option value="01">มกราคม</option><option value="02">กุมภาพันธ์</option>
                         <option value="03">มีนาคม</option><option value="04">เมษายน</option>
@@ -194,98 +220,98 @@
                     </select>
                 </div>
                 <div class="flex-1"></div>
-                <span id="queue-count-badge" class="text-xs bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600">0 คิวในหน้านี้</span>
+                <span id="queue-counter-badge" class="text-[11px] bg-slate-800 px-3 py-2 rounded-xl border border-slate-700/80 font-medium tracking-wide">0 คิวในหน้านี้</span>
             </div>
 
-            <div class="overflow-x-auto bg-slate-800/40 backdrop-blur rounded-2xl border border-slate-700/60 shadow-xl">
+            <div class="overflow-x-auto bg-slate-900/40 backdrop-blur rounded-2xl border border-slate-800/60 shadow-2xl">
                 <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead>
-                        <tr class="bg-slate-700/50 text-slate-200 text-sm">
-                            <th class="p-4 w-16" id="th-no">No.</th>
-                            <th class="p-4" id="th-customer">ผู้จอง / ประเภท</th>
-                            <th class="p-4" id="th-details">ช่องทาง & รายละเอียด</th>
-                            <th class="p-4" id="th-deadline">เดดไลน์</th>
-                            <th class="p-4" id="th-payment">การชำระเงิน</th>
-                            <th class="p-4" id="th-status">สถานะ</th>
-                            <th class="p-4 text-center w-36" id="th-actions">จัดการ</th>
+                        <tr class="bg-slate-800/40 text-slate-300 text-xs tracking-wider">
+                            <th class="p-4 w-16" id="th-queue-no">No.</th>
+                            <th class="p-4" id="th-queue-cust">ผู้จอง / ประเภท</th>
+                            <th class="p-4" id="th-queue-desc">ช่องทาง & รายละเอียด</th>
+                            <th class="p-4" id="th-queue-deadline">เดดไลน์</th>
+                            <th class="p-4" id="th-queue-payment">การชำระเงิน</th>
+                            <th class="p-4" id="th-queue-status">สถานะ</th>
+                            <th class="p-4 text-center w-36" id="th-queue-action">จัดการ</th>
                         </tr>
                     </thead>
-                    <tbody id="queue-rows-list" class="divide-y divide-slate-700/50 text-sm">
+                    <tbody id="queue-list-tbody" class="divide-y divide-slate-800/40 text-xs font-light">
                         </tbody>
                 </table>
             </div>
 
-            <div class="flex justify-between items-center px-2">
-                <button onclick="prevPage()" id="btn-prev-page" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-xl text-sm border border-slate-600 flex items-center gap-1 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fa-solid fa-chevron-left"></i> <span id="pag-prev">ย้อนกลับ</span>
+            <div class="flex justify-between items-center px-1">
+                <button onclick="goToPrevPage()" id="pagination-btn-prev" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-chevron-left"></i> <span id="pag-prev-text">ย้อนกลับ</span>
                 </button>
-                <span id="page-number-text" class="text-sm text-slate-400">หน้า 1/1</span>
-                <button onclick="nextPage()" id="btn-next-page" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-xl text-sm border border-slate-600 flex items-center gap-1 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <span id="pag-next">ถัดไป</span> <i class="fa-solid fa-chevron-right"></i>
+                <span id="pagination-info-text" class="text-xs text-slate-400 font-medium">หน้า 1/1</span>
+                <button onclick="goToNextPage()" id="pagination-btn-next" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    <span id="pag-next-text">ถัดไป</span> <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-8 text-xs text-slate-500">
-        <p>Powered by Queue System Premium Plan &copy; 2026</p>
+    <footer class="text-center py-10 border-t border-slate-800/40 text-[11px] text-slate-500 font-light">
+        <p>Powered by <span class="font-semibold text-slate-400">TestQuere Premium</span> &copy; 2026</p>
     </footer>
 
 
     <div id="modal-login" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-sm w-full shadow-2xl space-y-4">
-            <h3 class="text-xl font-bold flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved text-indigo-400"></i> <span id="login-title">เข้าสู่ระบบแอดมิน</span>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-sm w-full shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold flex items-center gap-2 text-white">
+                <i class="fa-solid fa-shield-halved text-indigo-400"></i> <span id="login-pop-title">เข้าสู่ระบบแอดมิน</span>
             </h3>
-            <div class="space-y-2">
-                <label id="lbl-password" class="text-sm text-slate-400">รหัสผ่านสำหรับแก้ไขข้อมูล</label>
-                <input type="password" id="input-admin-password" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="••••••••">
+            <div class="space-y-1.5">
+                <label id="login-pop-lbl" class="text-xs text-slate-400">รหัสผ่านสำหรับแก้ไขข้อมูล</label>
+                <input type="password" id="admin-password-input" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="••••••••">
             </div>
             <div class="flex gap-2">
-                <button onclick="submitAdminLogin()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-2.5 rounded-xl font-bold transition shadow-lg" id="btn-confirm-login">ยืนยัน</button>
-                <button onclick="closeLoginModal()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2.5 rounded-xl font-bold transition border border-slate-600" id="btn-cancel-login">ปิด</button>
+                <button onclick="submitAdminLogin()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold text-xs transition" id="login-pop-btn-confirm">ยืนยัน</button>
+                <button onclick="closeLoginModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-4 py-3 rounded-xl text-xs font-bold transition" id="login-pop-btn-close">ปิด</button>
             </div>
         </div>
     </div>
 
     <div id="modal-config" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-2xl w-full h-[85vh] overflow-y-auto shadow-2xl space-y-6">
-            <h3 class="text-xl font-bold text-pink-400 flex items-center gap-2">
-                <i class="fa-solid fa-gears"></i> <span id="cfg-title">การตั้งค่าทั่วไป</span>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-2xl w-full h-[85vh] overflow-y-auto shadow-2xl space-y-6">
+            <h3 class="text-lg font-bold text-pink-500 flex items-center gap-2">
+                <i class="fa-solid fa-gear"></i> <span id="cfg-pop-title">การตั้งค่าทั่วไป</span>
             </h3>
 
-            <div class="p-4 bg-slate-700/30 border border-slate-700/50 rounded-xl space-y-3">
-                <h4 class="font-semibold text-slate-200" id="cfg-sec-pass">รหัสผ่านแอดมิน</h4>
+            <div class="p-4 bg-slate-800/40 border border-slate-800/60 rounded-xl space-y-3">
+                <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider" id="cfg-lbl-pass">รหัสผ่านแอดมิน</h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input type="password" id="cfg-new-pwd" class="bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-200 focus:outline-none focus:ring-1 focus:ring-pink-500" placeholder="รหัสผ่านใหม่">
-                    <button onclick="updatePassword()" class="bg-slate-600 hover:bg-slate-500 text-sm font-bold rounded-xl px-4 py-2 transition" id="btn-save-pwd">เปลี่ยนรหัส</button>
+                    <input type="password" id="cfg-new-pass" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="รหัสผ่านใหม่">
+                    <button onclick="updateAdminPassword()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-xl px-4 py-2.5 transition" id="cfg-btn-change-pass">เปลี่ยนรหัส</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-site-name" class="text-xs text-slate-400 uppercase">ชื่อเว็บไซต์</label>
-                    <input type="text" id="cfg-site-name" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-name" class="text-[11px] text-slate-400 uppercase">ชื่อเว็บไซต์</label>
+                    <input type="text" id="cfg-site-name" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-site-desc" class="text-xs text-slate-400 uppercase">คำอธิบาย</label>
-                    <input type="text" id="cfg-site-desc" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-desc" class="text-[11px] text-slate-400 uppercase">คำอธิบาย</label>
+                    <input type="text" id="cfg-site-desc" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-cover" class="text-xs text-slate-400 uppercase">URL รูปปก (Google Drive direct link)</label>
-                    <input type="text" id="cfg-cover-url" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-cover-url" class="text-[11px] text-slate-400 uppercase">URL รูปปก (Cover)</label>
+                    <input type="text" id="cfg-cover-url" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-profile" class="text-xs text-slate-400 uppercase">URL รูปโปรไฟล์</label>
-                    <input type="text" id="cfg-profile-url" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-profile-url" class="text-[11px] text-slate-400 uppercase">URL รูปโปรไฟล์ (Profile)</label>
+                    <input type="text" id="cfg-profile-url" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-announcement" class="text-xs text-slate-400 uppercase">ข้อความประกาศ</label>
-                    <input type="text" id="cfg-announcement" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-notice" class="text-[11px] text-slate-400 uppercase">ข้อความประกาศ</label>
+                    <input type="text" id="cfg-announcement" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-status" class="text-xs text-slate-400 uppercase">เปิด / ปิดรับคิวงาน</label>
-                    <select id="cfg-queue-status" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
+                <div class="space-y-1">
+                    <label id="cfg-lbl-status-opt" class="text-[11px] text-slate-400 uppercase">สถานะเปิดรับคิว</label>
+                    <select id="cfg-queue-status" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500">
                         <option value="OPEN">OPEN (เปิดรับคิว)</option>
                         <option value="CLOSED">CLOSED (ปิดรับคิว)</option>
                         <option value="HIDDEN">ซ่อนแถบสถานะ</option>
@@ -294,243 +320,242 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-tos" class="text-xs text-slate-400 uppercase">ข้อตกลงและเงื่อนไข</label>
-                    <textarea id="cfg-tos" rows="3" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
+                <div class="space-y-1">
+                    <label id="cfg-lbl-tos-opt" class="text-[11px] text-slate-400 uppercase">ข้อตกลงและเงื่อนไข</label>
+                    <textarea id="cfg-tos" rows="3" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
                 </div>
-                <div class="space-y-1.5">
-                    <label id="cfg-lbl-timeline" class="text-xs text-slate-400 uppercase">ระยะเวลาการทำงาน</label>
-                    <textarea id="cfg-timeline" rows="3" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
+                <div class="space-y-1">
+                    <label id="cfg-lbl-time-opt" class="text-[11px] text-slate-400 uppercase">ระยะเวลาการทำงาน</label>
+                    <textarea id="cfg-timeline" rows="3" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
                 </div>
             </div>
 
-            <div class="space-y-3">
-                <h4 class="font-semibold text-slate-200" id="cfg-lbl-social">ลิงก์ติดต่อ / โซเชียลมีเดีย</h4>
+            <div class="space-y-2 border-t border-slate-800/60 pt-4">
+                <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider" id="cfg-lbl-social-opt">ช่องทางการติดต่อ (Social Links)</h4>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <input type="text" id="cfg-link-fb" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="Facebook">
-                    <input type="text" id="cfg-link-ig" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="Instagram">
-                    <input type="text" id="cfg-link-line" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="LINE">
-                    <input type="text" id="cfg-link-x" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="X (Twitter)">
-                    <input type="text" id="cfg-link-vgen" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="VGen">
-                    <input type="text" id="cfg-link-da" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="DeviantArt">
-                    <input type="text" id="cfg-link-discord" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="Discord">
-                    <input type="text" id="cfg-link-tiktok" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3 py-2 text-slate-100 focus:outline-none" placeholder="TikTok">
+                    <input type="text" id="cfg-soc-fb" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="Facebook URL">
+                    <input type="text" id="cfg-soc-ig" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="Instagram URL">
+                    <input type="text" id="cfg-soc-line" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="LINE URL">
+                    <input type="text" id="cfg-soc-x" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="X URL">
+                    <input type="text" id="cfg-soc-vgen" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="VGen URL">
+                    <input type="text" id="cfg-soc-da" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="DeviantArt URL">
+                    <input type="text" id="cfg-soc-discord" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="Discord URL">
+                    <input type="text" id="cfg-soc-tiktok" class="bg-slate-950 border border-slate-800 text-xs rounded-xl p-2.5 text-slate-100 focus:outline-none" placeholder="TikTok URL">
                 </div>
             </div>
 
-            <div class="space-y-3 border-t border-slate-700/50 pt-4">
+            <div class="space-y-3 border-t border-slate-800/60 pt-4">
                 <div class="flex justify-between items-center">
-                    <h4 class="font-semibold text-slate-200" id="cfg-lbl-port">ตั้งค่า Portfolio (ลิงก์รูป 6 ภาพ)</h4>
+                    <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider" id="cfg-lbl-port-opt">ตั้งค่าผลงานล่าสุด 6 ภาพ (3D Portfolio)</h4>
                     <div class="flex items-center gap-2">
-                        <label class="text-xs text-slate-400" id="cfg-lbl-speed">ความเร็วหมุน (วินาที)</label>
-                        <input type="number" id="cfg-3d-speed" value="20" class="w-16 bg-slate-900 border border-slate-700 text-xs rounded-xl p-1.5 text-center text-slate-100 focus:outline-none">
+                        <label class="text-[11px] text-slate-400" id="cfg-lbl-speed-opt">ความเร็วหมุน (วิ)</label>
+                        <input type="number" id="cfg-3d-speed" value="20" class="w-16 bg-slate-950 border border-slate-800 text-xs rounded-xl p-2 text-center text-slate-100 focus:outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input type="text" id="cfg-p1" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 1 (URL)">
-                    <input type="text" id="cfg-p2" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 2 (URL)">
-                    <input type="text" id="cfg-p3" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 3 (URL)">
-                    <input type="text" id="cfg-p4" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 4 (URL)">
-                    <input type="text" id="cfg-p5" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 5 (URL)">
-                    <input type="text" id="cfg-p6" class="bg-slate-900 border border-slate-700 text-xs rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none" placeholder="รูปที่ 6 (URL)">
+                    <input type="text" id="cfg-p1" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 1 (URL)">
+                    <input type="text" id="cfg-p2" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 2 (URL)">
+                    <input type="text" id="cfg-p3" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 3 (URL)">
+                    <input type="text" id="cfg-p4" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 4 (URL)">
+                    <input type="text" id="cfg-p5" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 5 (URL)">
+                    <input type="text" id="cfg-p6" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none" placeholder="รูปที่ 6 (URL)">
                 </div>
             </div>
 
-            <div class="space-y-1.5 border-t border-slate-700/50 pt-4">
-                <label id="cfg-lbl-payinfo" class="text-xs text-slate-400 uppercase">รายละเอียดช่องทางการโอนเงิน</label>
-                <textarea id="cfg-payment-info" rows="3" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
+            <div class="space-y-1 border-t border-slate-800/60 pt-4">
+                <label id="cfg-lbl-pay-opt" class="text-[11px] text-slate-400 uppercase">รายละเอียดช่องทางการชำระเงิน</label>
+                <textarea id="cfg-payment-info" rows="3" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-pink-500"></textarea>
             </div>
 
-            <div class="flex gap-2 pt-2 border-t border-slate-700">
-                <button onclick="saveAllSettings()" class="flex-1 bg-pink-600 hover:bg-pink-500 py-3 rounded-xl font-bold transition shadow-lg" id="btn-save-cfg">บันทึกข้อมูล</button>
-                <button onclick="closeConfigModal()" class="bg-slate-700 hover:bg-slate-600 px-5 py-3 rounded-xl font-bold transition border border-slate-600" id="btn-cancel-cfg">ยกเลิก</button>
+            <div class="flex gap-2 pt-2 border-t border-slate-800">
+                <button onclick="saveAllSettings()" class="flex-1 bg-pink-600 hover:bg-pink-500 text-white py-3 rounded-xl font-bold text-xs transition" id="cfg-btn-save">บันทึกข้อมูล</button>
+                <button onclick="closeConfigModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-3 rounded-xl font-bold text-xs transition" id="cfg-btn-cancel">ยกเลิก</button>
             </div>
         </div>
     </div>
 
     <div id="modal-theme" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-xl w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-6">
-            <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="thm-title">ธีมและเอฟเฟกต์ตกแต่ง</span>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-6">
+            <h3 class="text-lg font-bold text-amber-500 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="thm-pop-title">ธีมและเอฟเฟกต์ตกแต่ง</span>
             </h3>
 
             <div class="space-y-2">
-                <h4 class="text-sm font-semibold text-slate-300" id="thm-lbl-presets">เลือกธีมเริ่มต้น (มีให้เลือก 15 สี)</h4>
-                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2" id="preset-themes-list">
+                <h4 class="text-xs font-semibold text-slate-300" id="thm-lbl-presets">เลือกธีมเริ่มต้น (มีให้เลือก 15 สี)</h4>
+                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2" id="theme-presets-grid">
                     </div>
             </div>
 
-            <div class="space-y-2">
-                <h4 class="text-sm font-semibold text-slate-300" id="thm-lbl-effects">เอฟเฟกต์พื้นหลัง (13 รูปแบบ)</h4>
-                <select id="thm-bg-effect-select" class="w-full bg-slate-900 border border-slate-700 text-sm rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500">
+            <div class="space-y-1.5">
+                <h4 class="text-xs font-semibold text-slate-300" id="thm-lbl-bg-opt">เอฟเฟกต์พื้นหลัง (13 รูปแบบ)</h4>
+                <select id="thm-effect-select" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none">
                     <option value="none">None (เรียบง่าย)</option>
                     <option value="bg-effect-stars">Cosmic Stars (ดวงดาวประกาย)</option>
-                    <option value="bg-slate-900">Slate Minimalist</option>
-                    <option value="bg-zinc-900">Zinc Obsidian</option>
-                    <option value="bg-neutral-900">Charcoal Neutral</option>
-                    <option value="bg-stone-900">Warm Stone</option>
-                    <option value="bg-red-950">Ruby Dark</option>
+                    <option value="bg-effect-dots">Dotted Matrix (จุดเรียงราย)</option>
+                    <option value="bg-effect-grid">Neon Grid (ตารางนีออน)</option>
+                    <option value="bg-slate-900">Slate Charcoal</option>
+                    <option value="bg-neutral-900">Obsidian Charcoal</option>
+                    <option value="bg-stone-900">Natural Warm Obsidian</option>
+                    <option value="bg-zinc-900">Charcoal Neutral</option>
+                    <option value="bg-red-950">Midnight Ruby</option>
                     <option value="bg-orange-950">Amber Sunset</option>
-                    <option value="bg-emerald-950">Jade Emerald</option>
-                    <option value="bg-teal-950">Deep Cyan</option>
-                    <option value="bg-cyan-950">Ocean Deep</option>
+                    <option value="bg-emerald-950">Midnight Jade</option>
+                    <option value="bg-cyan-950">Cyan Deep Space</option>
                     <option value="bg-indigo-950">Midnight Blue</option>
-                    <option value="bg-fuchsia-950">Neon Pink</option>
                 </select>
             </div>
 
-            <div class="p-4 bg-slate-700/30 border border-slate-700/50 rounded-xl space-y-3">
-                <h4 class="font-semibold text-slate-200 text-sm" id="thm-lbl-custom">ปรับแต่งชุดสีและบันทึกเอง</h4>
+            <div class="p-4 bg-slate-800/40 border border-slate-800/60 rounded-xl space-y-3">
+                <h4 class="font-semibold text-slate-200 text-xs" id="thm-lbl-custom-opt">ปรับแต่งสีบันทึกเอง (Custom Color)</h4>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="space-y-1">
-                        <label class="text-xs text-slate-400" id="thm-custom-primary">สีหลัก (Primary)</label>
-                        <input type="color" id="thm-custom-p-color" class="w-full h-10 rounded border border-slate-700 bg-slate-900 cursor-pointer">
+                        <label class="text-[11px] text-slate-400" id="thm-custom-p-color-lbl">สีหลัก (Primary)</label>
+                        <input type="color" id="thm-manual-p-color" class="w-full h-11 rounded border border-slate-800 bg-slate-950 cursor-pointer">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-xs text-slate-400" id="thm-custom-secondary">สีพื้นหลัง (Background)</label>
-                        <input type="color" id="thm-custom-s-color" class="w-full h-10 rounded border border-slate-700 bg-slate-900 cursor-pointer">
+                        <label class="text-[11px] text-slate-400" id="thm-custom-s-color-lbl">สีพื้นหลัง (Background)</label>
+                        <input type="color" id="thm-manual-s-color" class="w-full h-11 rounded border border-slate-800 bg-slate-950 cursor-pointer">
                     </div>
                 </div>
             </div>
 
             <div class="flex gap-2">
-                <button onclick="applyThemeChanges()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 py-3 rounded-xl font-extrabold transition shadow-lg" id="btn-save-theme">บันทึกธีม</button>
-                <button onclick="closeThemeModal()" class="bg-slate-700 hover:bg-slate-600 px-5 py-3 rounded-xl font-bold transition border border-slate-600" id="btn-cancel-theme">ยกเลิก</button>
+                <button onclick="applyVisualTheme()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 py-3 rounded-xl font-extrabold text-xs transition" id="thm-btn-save">บันทึกธีม</button>
+                <button onclick="closeThemeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-3 rounded-xl font-bold text-xs transition" id="thm-btn-cancel">ยกเลิก</button>
             </div>
         </div>
     </div>
 
     <div id="modal-queue" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-2xl w-full h-[85vh] overflow-y-auto shadow-2xl space-y-5">
-            <h3 id="queue-form-title" class="text-xl font-bold flex items-center gap-2">
-                <i class="fa-solid fa-user-plus text-pink-400"></i> เพิ่มข้อมูลคิวงาน
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-2xl w-full h-[85vh] overflow-y-auto shadow-2xl space-y-5">
+            <h3 id="q-form-title" class="text-lg font-bold flex items-center gap-2 text-white">
+                <i class="fa-solid fa-plus-circle text-pink-500"></i> เพิ่มข้อมูลคิวงาน
             </h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1">
-                    <label id="q-lbl-no" class="text-xs text-slate-400 uppercase">เลขลำดับคิว</label>
-                    <input type="number" id="q-number" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-no" class="text-[11px] text-slate-400 uppercase">เลขคิว</label>
+                    <input type="number" id="q-number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
                 <div class="space-y-1">
-                    <label id="q-lbl-cust" class="text-xs text-slate-400 uppercase">ชื่อลูกค้า</label>
-                    <input type="text" id="q-customer-name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-name" class="text-[11px] text-slate-400 uppercase">ชื่อลูกค้า</label>
+                    <input type="text" id="q-customer" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
                 <div class="space-y-1">
-                    <label id="q-lbl-type" class="text-xs text-slate-400 uppercase">ประเภทงาน</label>
-                    <input type="text" id="q-job-type" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-type" class="text-[11px] text-slate-400 uppercase">ประเภทงาน</label>
+                    <input type="text" id="q-job" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
                 <div class="space-y-1">
-                    <label id="q-lbl-ch" class="text-xs text-slate-400 uppercase">ช่องทางการติดต่อ</label>
-                    <input type="text" id="q-contact" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-contact" class="text-[11px] text-slate-400 uppercase">ช่องทางการติดต่อ</label>
+                    <input type="text" id="q-contact" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
             </div>
 
             <div class="space-y-1">
-                <label id="q-lbl-details" class="text-xs text-slate-400 uppercase">รายละเอียดงาน</label>
-                <textarea id="q-description" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none"></textarea>
+                <label id="q-lbl-desc" class="text-[11px] text-slate-400 uppercase">รายละเอียดงาน</label>
+                <textarea id="q-desc" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none"></textarea>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1">
-                    <label id="q-lbl-date" class="text-xs text-slate-400 uppercase">วัน/เวลา เดดไลน์</label>
-                    <input type="date" id="q-deadline-date" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-deadline" class="text-[11px] text-slate-400 uppercase">วันที่เดดไลน์</label>
+                    <input type="date" id="q-deadline" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
                 <div class="space-y-1">
-                    <label id="q-lbl-plan" class="text-xs text-slate-400 uppercase">วางแผนรายเดือน/รายปี</label>
-                    <input type="month" id="q-planning-month" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-plan-opt" class="text-[11px] text-slate-400 uppercase">วางแผนรายเดือน/รายปี</label>
+                    <input type="month" id="q-planning" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                 </div>
             </div>
 
-            <div class="p-4 bg-slate-700/30 border border-slate-700/50 rounded-xl space-y-3">
-                <h4 class="font-semibold text-slate-200 text-sm flex items-center gap-1" id="q-lbl-revenue">
-                    <i class="fa-solid fa-coins text-amber-400"></i> ระบบคำนวณรายได้ (Premium Assistant)
+            <div class="p-4 bg-slate-800/40 border border-slate-800/60 rounded-xl space-y-3">
+                <h4 class="font-semibold text-slate-200 text-xs flex items-center gap-1.5" id="q-lbl-finance-calc">
+                    <i class="fa-solid fa-calculator text-amber-500"></i> ผู้ช่วยจัดการรายได้ (Revenue Assistant)
                 </h4>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="space-y-1">
-                        <label class="text-xs text-slate-400" id="q-fin-total">ราคางานทั้งหมด</label>
-                        <input type="number" id="q-price-total" oninput="recalcQueueFinance()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                        <label class="text-[11px] text-slate-400" id="q-fin-total">ราคางานรวม</label>
+                        <input type="number" id="q-price-total" oninput="calculatePriceBalance()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-xs text-slate-400" id="q-fin-deposit">มัดจำแล้ว</label>
-                        <input type="number" id="q-price-deposit" oninput="recalcQueueFinance()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                        <label class="text-[11px] text-slate-400" id="q-fin-deposit">มัดจำแล้ว</label>
+                        <input type="number" id="q-price-deposit" oninput="calculatePriceBalance()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-xs text-slate-400" id="q-fin-due">ยอดคงเหลือจ่าย</label>
-                        <input type="number" id="q-price-balance" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm bg-slate-800 text-slate-400 focus:outline-none cursor-not-allowed" readonly>
+                        <label class="text-[11px] text-slate-400" id="q-fin-balance">ยอดคงเหลือ</label>
+                        <input type="number" id="q-price-balance" class="w-full bg-slate-800 border border-slate-800/60 rounded-xl px-3.5 py-2.5 text-xs text-slate-400 focus:outline-none cursor-not-allowed" readonly>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1">
-                    <label id="q-lbl-status-opt" class="text-xs text-slate-400 uppercase">สถานะคิวงาน</label>
-                    <select id="q-status-select" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none">
+                    <label id="q-lbl-status-opt" class="text-[11px] text-slate-400 uppercase">สถานะคิวงาน</label>
+                    <select id="q-status-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none">
                         <option value="รอเริ่มงาน">⏳ รอเริ่มงาน (Waiting)</option>
                         <option value="กำลังดำเนินการ">🎨 กำลังดำเนินการ (Working)</option>
                         <option value="เสร็จสิ้นแล้ว">✅ เสร็จสิ้นแล้ว (Completed)</option>
                         <option value="ยกเลิกคิว">❌ ยกเลิกคิว (Cancelled)</option>
                     </select>
                 </div>
-                <div class="flex items-center gap-3 bg-slate-700/20 p-3 rounded-xl border border-slate-700/40">
-                    <input type="checkbox" id="q-is-urgent" class="w-5 h-5 accent-rose-600 rounded">
+                <div class="flex items-center gap-3 bg-slate-800/40 p-3 rounded-xl border border-slate-800/60">
+                    <input type="checkbox" id="q-is-urgent" class="w-5 h-5 accent-pink-600 rounded">
                     <div class="flex-1">
-                        <p class="text-sm font-bold text-rose-400" id="q-opt-urgent">เปิดสถานะงานเร่งด่วน</p>
-                        <p class="text-xs text-slate-400" id="q-opt-urgent-desc">จะแสดงป้าย Urgent สีแดงชัดเจน</p>
+                        <p class="text-xs font-bold text-pink-400" id="q-lbl-urgent-opt">เปิดสถานะงานเร่งด่วน</p>
+                        <p class="text-[10px] text-slate-400" id="q-lbl-urgent-desc-opt">จะขึ้นป้ายเตือนว่า "Urgent" แดงชัดเจน</p>
                     </div>
                 </div>
             </div>
 
-            <div class="flex gap-2 pt-2 border-t border-slate-700">
-                <button onclick="submitQueueForm()" class="flex-1 bg-pink-600 hover:bg-pink-500 py-3 rounded-xl font-bold transition shadow-lg" id="btn-save-queue">บันทึกคิว</button>
-                <button onclick="closeQueueModal()" class="bg-slate-700 hover:bg-slate-600 px-5 py-3 rounded-xl font-bold transition border border-slate-600" id="btn-cancel-queue">ยกเลิก</button>
+            <div class="flex gap-2 pt-2 border-t border-slate-800">
+                <button onclick="submitQueueForm()" class="flex-1 bg-pink-600 hover:bg-pink-500 text-white py-3 rounded-xl font-bold text-xs transition" id="q-btn-save">บันทึกข้อมูล</button>
+                <button onclick="closeQueueFormModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-3 rounded-xl font-bold text-xs transition" id="q-btn-cancel">ยกเลิก</button>
             </div>
         </div>
     </div>
 
-    <div id="modal-view-detail" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-4">
-            <h3 class="text-xl font-bold text-pink-400 flex items-center gap-2">
-                <i class="fa-solid fa-file-invoice"></i> <span id="view-pop-title">รายละเอียดข้อมูลคิวงาน</span>
+    <div id="modal-detail-view" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-pink-500 flex items-center gap-2">
+                <i class="fa-solid fa-file-lines"></i> <span id="v-pop-title">รายละเอียดคิวงาน</span>
             </h3>
-            <div id="view-details-content" class="space-y-3.5 text-sm text-slate-200">
+            <div id="view-modal-content" class="space-y-4 text-xs font-light text-slate-200">
                 </div>
-            <div class="border-t border-slate-700 pt-3 text-right">
-                <button onclick="closeDetailModal()" class="bg-slate-700 hover:bg-slate-600 px-5 py-2.5 rounded-xl font-bold transition border border-slate-600" id="btn-close-detail">ปิดหน้าต่าง</button>
+            <div class="border-t border-slate-800 pt-3 flex justify-end">
+                <button onclick="closeDetailModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs transition" id="v-pop-close">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
 
     <div id="modal-payment" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl max-w-md w-full shadow-2xl space-y-4">
-            <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2">
-                <i class="fa-solid fa-wallet"></i> <span id="pay-pop-title">การชำระเงิน / Payment Channels</span>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-md w-full shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                <i class="fa-solid fa-circle-dollar-to-slot"></i> <span id="p-pop-title">รายละเอียดการชำระเงิน</span>
             </h3>
-            <div id="payment-display-text" class="text-sm text-slate-300 bg-slate-700/40 p-4 rounded-xl border border-slate-700/60 whitespace-pre-line leading-relaxed">
+            <div id="payment-display-block" class="text-xs text-slate-300 font-light bg-slate-800/40 p-4 border border-slate-800 rounded-xl leading-relaxed whitespace-pre-wrap select-text">
                 </div>
             <div class="text-right">
-                <button onclick="closePaymentModal()" class="bg-slate-700 hover:bg-slate-600 px-5 py-2.5 rounded-xl font-bold transition border border-slate-600" id="btn-close-pay">ปิด</button>
+                <button onclick="closePaymentModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-2.5 rounded-xl text-xs font-bold transition" id="p-pop-close">ปิด</button>
             </div>
         </div>
     </div>
 
 
     <script>
-        // Default Storage Data for testing
-        const DEFAULT_PWD = "admin";
-        let localData = JSON.parse(localStorage.getItem('premium_queue_data')) || {
-            password: DEFAULT_PWD,
-            siteName: "Queue Premium Space",
-            siteDesc: "ระบบรับคิวงานวาดและงานออกแบบคุณภาพสูง ปรับแต่งธีมได้อิสระ",
+        // Data default template
+        const SYSTEM_DEFAULT_DATA = {
+            password: "admin",
+            siteName: "TestQuere Premium",
+            siteDesc: "ระบบจัดการคิวงานอัจฉริยะ รองรับระบบบันทึกรายได้และ 3D Portfolio",
             coverUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
             coverOffsetY: "50%",
             profileUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
-            announcement: "ยินดีต้อนรับสู่ระบบรับคิวงาน Premium (โปรโมชั่นพิเศษ!)",
+            announcement: "ประกาศสั้นๆ หน้าระบบ: เปิดรับสมัครคิวรอบใหม่ประจำเดือนพฤษภาคม!",
             queueStatus: "OPEN",
-            tos: "1. รับเฉพาะงานเชิงพาณิชย์และส่วนตัวตามที่แจ้ง\n2. จ่ายมัดจำ 50% ก่อนเริ่มงาน",
-            timeline: "ปกติใช้เวลา 7-14 วันต่อคิวงาน ขึ้นอยู่กับความละเอียดของงาน",
-            paymentInfo: "ธนาคารกสิกรไทย (K-Bank)\nเลขบัญชี: 012-3-45678-9\nชื่อบัญชี: มั่งคั่ง ร่ำรวย",
+            tos: "1. สนใจติดต่อจองคิวงานผ่านช่องทางที่ลงไว้ได้เลยค่ะ\n2. โอนมัดจำขั้นต่ำ 50% ทุกครั้งหลังสรุปบรีฟงานแล้ว\n3. ขออนุญาตไม่รับแก้ไขงานหลังจากลงสีจริงแล้ว",
+            timeline: "ปกติใช้ระยะเวลา 7-14 วันต่อคิวงาน (ขึ้นอยู่กับระดับความละเอียดของชิ้นงาน)",
+            paymentInfo: "ธนาคารกสิกรไทย (K-Bank)\nเลขบัญชี: 123-4-56789-0\nชื่อบัญชี: คุณมั่งคั่ง ร่ำรวย",
             socials: { fb: "", ig: "", line: "", x: "", vgen: "", da: "", discord: "", tiktok: "" },
-            theme: { preset: 'indigo', bgEffect: 'bg-effect-stars', primary: '#ec4899', secondary: '#0f172a' },
+            theme: { preset: 'pink', bgEffect: 'bg-effect-stars', primary: '#ec4899', secondary: '#0f172a' },
             portfolio: [
                 "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=300&q=80",
                 "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=300&q=80",
@@ -542,28 +567,28 @@
             speed3d: 20,
             queues: [
                 { id: "1", number: 1, name: "คุณส้ม", job: "Full Body Illustration", contact: "FB: Orange", desc: "วาดตัวละครผู้หญิง ถือกระเป๋า", date: "2026-05-10", plan: "2026-05", price: 1000, deposit: 500, balance: 500, status: "กำลังดำเนินการ", isUrgent: true, archived: false },
-                { id: "2", number: 2, name: "คุณเบิร์ด", job: "Live2D Model", contact: "Twitter: @bird", desc: "นายแบบ 3D Chibi", date: "2026-06-20", plan: "2026-06", price: 2000, deposit: 2000, balance: 0, status: "เสร็จสิ้นแล้ว", archived: false }
+                { id: "2", number: 2, name: "คุณเบิร์ด", job: "Live2D Model", contact: "Twitter: @bird", desc: "โมเดล Chibi 3D สไตล์น่ารัก", date: "2026-06-20", plan: "2026-06", price: 2000, deposit: 2000, balance: 0, status: "เสร็จสิ้นแล้ว", archived: false }
             ]
         };
 
-        // Translations strings setup
-        const langStrings = {
+        // Translations mapping Dictionary
+        const TRANS_RESOURCES = {
             th: {
-                siteName: "ระบบรับคิวงาน",
+                siteName: "ระบบคิว",
                 navAdmin: "แอดมิน",
                 navLogout: "ออกระบบ",
                 titleTOS: "ข้อตกลงและเงื่อนไข",
                 titleTimeline: "ระยะเวลาการทำงาน",
                 titleQueueList: "ตารางคิวงาน",
-                descQueueView: "อัปเดตข้อมูลความคืบหน้าของคิวงานทั้งหมดที่นี่",
+                descQueueView: "อัปเดตข้อมูลความคืบหน้าของคิวงานทั้งหมด",
                 btnPayment: "ช่องทางชำระเงิน",
                 btnPrev: "ย้อนกลับ",
                 btnNext: "ถัดไป",
-                lblThNo: "ลำดับ",
-                lblThCust: "ชื่อ / ประเภท",
+                lblThNo: "No.",
+                lblThCust: "ผู้จอง / ประเภท",
                 lblThDetail: "ช่องทาง & รายละเอียด",
                 lblThDeadline: "เดดไลน์",
-                lblThPay: "ชำระเงิน",
+                lblThPay: "การชำระเงิน",
                 lblThStatus: "สถานะ",
                 lblThAction: "จัดการ",
                 portfolioTitle: "ผลงานล่าสุด (3D Portfolio)"
@@ -573,65 +598,670 @@
                 navAdmin: "Admin",
                 navLogout: "Logout",
                 titleTOS: "Terms of Service",
-                titleTimeline: "Work Duration / Timeline",
-                titleQueueList: "Queue Tracker",
-                descQueueView: "Track all pending and working queues progress here.",
-                btnPayment: "Payment Details",
+                titleTimeline: "Working Timeline",
+                titleQueueList: "Queue List Tracker",
+                descQueueView: "Track all pending and working queues in real-time.",
+                btnPayment: "Payment Channels",
                 btnPrev: "Previous",
                 btnNext: "Next",
                 lblThNo: "No.",
-                lblThCust: "Client / Type",
-                lblThDetail: "Contact & Description",
+                lblThCust: "Client / Category",
+                lblThDetail: "Contacts & Summary",
                 lblThDeadline: "Deadline",
-                lblThPay: "Payment",
+                lblThPay: "Payments",
                 lblThStatus: "Status",
                 lblThAction: "Action",
-                portfolioTitle: "Recent Works (3D Slider)"
+                portfolioTitle: "Latest Artworks (3D Slider)"
             }
         };
 
-        // State variables
+        // System states
+        let localData = JSON.parse(localStorage.getItem('premium_queue_data')) || SYSTEM_DEFAULT_DATA;
         let currentLang = localStorage.getItem('premium_lang') || 'th';
         let isAdminActive = sessionStorage.getItem('admin_session') === 'true';
         let currentPage = 1;
         const itemsPerPage = 5;
         let selectedQueueId = null;
-        let isDraggingCover = false;
-        let dragStartY = 0;
+        let isCoverDraggingActive = false;
+        let coverDragInitialY = 0;
 
-        // Init setup on mount
-        function initApp() {
-            renderLanguageStrings();
-            renderProfileAndVisuals();
-            renderSocialsArea();
-            renderPortfolio3D();
+        // Visual Theme color setups
+        const THEME_PRESET_COLORS = {
+            'pink': { primary: '#ec4899', secondary: '#0f172a' },
+            'indigo': { primary: '#6366f1', secondary: '#0f172a' },
+            'amber': { primary: '#f59e0b', secondary: '#1c1917' },
+            'red': { primary: '#ef4444', secondary: '#450a0a' },
+            'emerald': { primary: '#10b981', secondary: '#022c22' },
+            'teal': { primary: '#14b8a6', secondary: '#042f2e' },
+            'cyan': { primary: '#06b6d4', secondary: '#083344' },
+            'violet': { primary: '#8b5cf6', secondary: '#1e1b4b' },
+            'fuchsia': { primary: '#d946ef', secondary: '#2e1065' },
+            'rose': { primary: '#f43f5e', secondary: '#4c051e' },
+            'slate': { primary: '#64748b', secondary: '#0f172a' },
+            'zinc': { primary: '#71717a', secondary: '#09090b' },
+            'yellow': { primary: '#eab308', secondary: '#0c0a09' },
+            'neutral': { primary: '#737373', secondary: '#171717' },
+            'sky': { primary: '#0ea5e9', secondary: '#0c4a6e' }
+        };
+
+        // On Load initialization
+        function initializeApp() {
+            renderLanguageLabels();
+            renderProfileDetails();
+            renderSocialMediaLinks();
+            render3DPortfolioSlider();
             renderQueueTable();
-            checkAdminVisibility();
-            applySavedVisualTheme();
+            checkAdminAccessibilityUI();
+            applyThemeColorsAndEffects();
         }
 
-        // Apply Language selections
-        function toggleLanguage() {
+        // Toggle TH/EN Language translations
+        function toggleLang() {
             currentLang = currentLang === 'th' ? 'en' : 'th';
             localStorage.setItem('premium_lang', currentLang);
-            renderLanguageStrings();
+            renderLanguageLabels();
             renderQueueTable();
         }
 
-        function renderLanguageStrings() {
-            const S = langStrings[currentLang];
-            document.getElementById('page-title').innerText = localData.siteName;
+        function renderLanguageLabels() {
+            const S = TRANS_RESOURCES[currentLang];
+            document.getElementById('site-title-meta').innerText = localData.siteName;
             document.getElementById('nav-site-name').innerText = localData.siteName;
-            document.getElementById('nav-admin-text').innerText = S.navAdmin;
-            document.getElementById('nav-logout-text').innerText = S.navLogout;
-            document.getElementById('title-tos').innerText = S.titleTOS;
-            document.getElementById('title-timeline').innerText = S.titleTimeline;
-            document.getElementById('title-queue-list').innerText = S.titleQueueList;
-            document.getElementById('desc-queue-view').innerText = S.descQueueView;
-            document.getElementById('btn-payment-info').innerText = S.btnPayment;
-            document.getElementById('pag-prev').innerText = S.btnPrev;
-            document.getElementById('pag-next').innerText = S.btnNext;
-            document.getElementById('th-no').innerText = S.lblThNo;
-            document.getElementById('th-customer').innerText = S.lblThCust;
-            document.getElementById('th-details').innerText = S.lblThDetail;
-            document.getElementById('th-deadline').innerText = S.lbl
+            document.getElementById('btn-admin-text').innerText = S.navAdmin;
+            document.getElementById('btn-logout-text').innerText = S.navLogout;
+            document.getElementById('title-tos-head').innerText = S.titleTOS;
+            document.getElementById('title-timeline-head').innerText = S.titleTimeline;
+            document.getElementById('title-queue-header').innerText = S.titleQueueList;
+            document.getElementById('desc-queue-header').innerText = S.descQueueView;
+            document.getElementById('btn-payment-trigger').innerText = S.btnPayment;
+            document.getElementById('pag-prev-text').innerText = S.btnPrev;
+            document.getElementById('pag-next-text').innerText = S.btnNext;
+            document.getElementById('th-queue-no').innerText = S.lblThNo;
+            document.getElementById('th-queue-cust').innerText = S.lblThCust;
+            document.getElementById('th-queue-desc').innerText = S.lblThDetail;
+            document.getElementById('th-queue-deadline').innerText = S.lblThDeadline;
+            document.getElementById('th-queue-payment').innerText = S.lblThPay;
+            document.getElementById('th-queue-status').innerText = S.lblThStatus;
+            document.getElementById('th-queue-action').innerText = S.lblThAction;
+            document.getElementById('title-portfolio-3d').innerHTML = `<i class="fa-solid fa-cube text-pink-500"></i> ${S.portfolioTitle}`;
+        }
+
+        function renderProfileDetails() {
+            document.getElementById('site-title-h1').innerText = localData.siteName;
+            document.getElementById('site-desc-p').innerText = localData.siteDesc;
+            document.getElementById('tos-display-text').innerText = localData.tos;
+            document.getElementById('timeline-display-text').innerText = localData.timeline;
+            document.getElementById('payment-display-block').innerText = localData.paymentInfo;
+
+            // Load visual imagery URLs
+            document.getElementById('cover-display-img').src = localData.coverUrl || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+            document.getElementById('cover-display-img').style.objectPosition = `50% ${localData.coverOffsetY || '50%'}`;
+            document.getElementById('profile-display-img').src = localData.profileUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb';
+
+            // Top Status badge logic
+            const badgeEl = document.getElementById('nav-status-badge');
+            if (localData.queueStatus === 'HIDDEN') {
+                badgeEl.classList.add('hidden');
+            } else {
+                badgeEl.classList.remove('hidden');
+                badgeEl.innerText = localData.queueStatus;
+                badgeEl.className = `text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow ${localData.queueStatus === 'OPEN' ? 'bg-emerald-500 text-slate-950' : 'bg-rose-600 text-slate-100'}`;
+            }
+
+            // Announcement display
+            const annArea = document.getElementById('announcement-bar');
+            if (localData.announcement) {
+                annArea.classList.remove('hidden');
+                document.getElementById('announcement-text').innerText = localData.announcement;
+            } else {
+                annArea.classList.add('hidden');
+            }
+        }
+
+        function renderSocialMediaLinks() {
+            const list = document.getElementById('social-links-container');
+            list.innerHTML = "";
+            const links = localData.socials || {};
+            const keys = [
+                { k: 'fb', icon: 'fa-brands fa-facebook', color: 'bg-blue-600 hover:bg-blue-500' },
+                { k: 'ig', icon: 'fa-brands fa-instagram', color: 'bg-pink-600 hover:bg-pink-500' },
+                { k: 'line', icon: 'fa-brands fa-line', color: 'bg-green-500 hover:bg-green-400' },
+                { k: 'x', icon: 'fa-brands fa-x-twitter', color: 'bg-slate-700 hover:bg-slate-600' },
+                { k: 'vgen', icon: 'fa-solid fa-v', color: 'bg-violet-600 hover:bg-violet-500' },
+                { k: 'da', icon: 'fa-brands fa-deviantart', color: 'bg-emerald-500 hover:bg-emerald-400' },
+                { k: 'discord', icon: 'fa-brands fa-discord', color: 'bg-indigo-500 hover:bg-indigo-400' },
+                { k: 'tiktok', icon: 'fa-brands fa-tiktok', color: 'bg-slate-950 hover:bg-slate-900 border border-slate-700' },
+            ];
+
+            keys.forEach(item => {
+                if (links[item.k]) {
+                    const el = document.createElement('a');
+                    el.href = links[item.k];
+                    el.target = "_blank";
+                    el.className = `${item.color} w-9 h-9 rounded-xl flex items-center justify-center text-white hover:scale-110 duration-200 transition shadow`;
+                    el.innerHTML = `<i class="${item.icon}"></i>`;
+                    list.appendChild(el);
+                }
+            });
+        }
+
+        function render3DPortfolioSlider() {
+            const container = document.getElementById('portfolio-3d-wrapper');
+            container.style.setProperty('--speed', `${localData.speed3d || 20}s`);
+            container.innerHTML = "";
+            const items = localData.portfolio || [];
+
+            items.forEach((url, index) => {
+                if (index < 6 && url) {
+                    const span = document.createElement('span');
+                    span.style.setProperty('--i', index + 1);
+                    span.innerHTML = `<img src="${url}" class="w-full h-full object-cover rounded-2xl border border-slate-800/80 shadow-lg">`;
+                    container.appendChild(span);
+                }
+            });
+        }
+
+        // Draggable Cover Image Feature
+        function startDragCover(e) {
+            if (!isAdminActive) return;
+            isCoverDraggingActive = true;
+            coverDragInitialY = e.clientY || e.touches[0].clientY;
+            document.addEventListener('mousemove', onDragCover);
+            document.addEventListener('mouseup', endDragCover);
+            document.addEventListener('touchmove', onDragCover);
+            document.addEventListener('touchend', endDragCover);
+        }
+
+        function onDragCover(e) {
+            if (!isCoverDraggingActive) return;
+            const currentY = e.clientY || e.touches[0].clientY;
+            const dy = currentY - coverDragInitialY;
+            coverDragInitialY = currentY;
+
+            let valPct = parseInt(localData.coverOffsetY || "50%");
+            valPct = Math.min(100, Math.max(0, valPct - dy * 0.1));
+            localData.coverOffsetY = `${valPct}%`;
+            document.getElementById('cover-display-img').style.objectPosition = `50% ${localData.coverOffsetY}`;
+        }
+
+        function endDragCover() {
+            isCoverDraggingActive = false;
+            document.removeEventListener('mousemove', onDragCover);
+            document.removeEventListener('mouseup', endDragCover);
+            document.removeEventListener('touchmove', onDragCover);
+            document.removeEventListener('touchend', endDragCover);
+            localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+        }
+
+        // Handle Session levels
+        function checkAdminAccessibilityUI() {
+            const loginBtn = document.getElementById('btn-admin-login');
+            const logoutBtn = document.getElementById('btn-admin-logout');
+            const dragTip = document.getElementById('cover-drag-notice');
+            const dashboard = document.getElementById('admin-revenue-dashboard');
+            const adminControls = document.getElementById('admin-action-controls');
+
+            if (isAdminActive) {
+                loginBtn.classList.add('hidden');
+                logoutBtn.classList.remove('hidden');
+                dragTip.classList.remove('hidden');
+                dashboard.classList.remove('hidden');
+                adminControls.classList.remove('hidden');
+                calculateTotalRevenueDashboard();
+            } else {
+                loginBtn.classList.remove('hidden');
+                logoutBtn.classList.add('hidden');
+                dragTip.classList.add('hidden');
+                dashboard.classList.add('hidden');
+                adminControls.classList.add('hidden');
+            }
+        }
+
+        function openLoginModal() { document.getElementById('modal-login').classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('modal-login').classList.add('hidden'); }
+        function openPaymentModal() { document.getElementById('modal-payment').classList.remove('hidden'); }
+        function closePaymentModal() { document.getElementById('modal-payment').classList.add('hidden'); }
+        function openThemeModal() {
+            loadPresetsInGrid();
+            document.getElementById('thm-effect-select').value = localData.theme.bgEffect || 'none';
+            document.getElementById('thm-manual-p-color').value = localData.theme.primary || '#ec4899';
+            document.getElementById('thm-manual-s-color').value = localData.theme.secondary || '#0f172a';
+            document.getElementById('modal-theme').classList.remove('hidden');
+        }
+        function closeThemeModal() { document.getElementById('modal-theme').classList.add('hidden'); }
+
+        // Core Financial Calculation
+        function calculatePriceBalance() {
+            const tot = parseFloat(document.getElementById('q-price-total').value) || 0;
+            const dep = parseFloat(document.getElementById('q-price-deposit').value) || 0;
+            const bal = Math.max(0, tot - dep);
+            document.getElementById('q-price-balance').value = bal;
+        }
+
+        // Render Table and Filters
+        function renderQueueTable() {
+            const yearFilter = document.getElementById('filter-year-select').value;
+            const monthFilter = document.getElementById('filter-month-select').value;
+            const tbody = document.getElementById('queue-list-tbody');
+            tbody.innerHTML = "";
+
+            let queuesFiltered = localData.queues.filter(itm => {
+                if (itm.archived && !isAdminActive) return false;
+                const dDate = new Date(itm.date);
+                const yr = dDate.getFullYear().toString();
+                const mon = (dDate.getMonth() + 1).toString().padStart(2, '0');
+
+                const yrMatches = yr === yearFilter || !itm.date;
+                const monMatches = monthFilter === 'all' || mon === monthFilter;
+                return yrMatches && monMatches;
+            });
+
+            // Sort ASC
+            queuesFiltered.sort((a, b) => a.number - b.number);
+
+            document.getElementById('queue-counter-badge').innerText = `${queuesFiltered.length} ${currentLang === 'th' ? 'คิวในหน้านี้' : 'Queue(s)'}`;
+            const totalPages = Math.ceil(queuesFiltered.length / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            document.getElementById('pagination-info-text').innerText = `${currentLang === 'th' ? 'หน้า' : 'Page'} ${currentPage}/${totalPages}`;
+            document.getElementById('pagination-btn-prev').disabled = currentPage === 1;
+            document.getElementById('pagination-btn-next').disabled = currentPage === totalPages;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const renderedPageList = queuesFiltered.slice(startIndex, startIndex + itemsPerPage);
+
+            renderedPageList.forEach(q => {
+                const tr = document.createElement('tr');
+                tr.className = `hover:bg-slate-800/20 border-b border-slate-800/30 transition duration-150 ${q.isUrgent ? 'bg-rose-950/20' : ''}`;
+
+                let deadlineContent = q.date || '-';
+                if (q.plan) {
+                    const [y, m] = q.plan.split('-');
+                    deadlineContent += ` <br><span class="text-[10px] text-slate-400">📅 ${m}/${y}</span>`;
+                }
+
+                const isPaid = q.balance <= 0 && q.price > 0;
+                const payCellContent = `<span class="font-bold text-slate-100">฿${q.price}</span><br>
+                                        <span class="text-[10px] font-semibold ${isPaid ? 'text-emerald-400' : 'text-amber-400'}">
+                                            ${isPaid ? (currentLang === 'th' ? 'ชำระแล้ว' : 'Paid') : (currentLang === 'th' ? `ค้างชำระ ฿${q.balance}` : `Due ฿${q.balance}`)}
+                                        </span>`;
+
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-slate-400">#${q.number}</td>
+                    <td class="p-4">
+                        <span class="font-bold text-pink-400 text-sm flex items-center gap-1.5">
+                            ${q.isUrgent ? '<span class="bg-rose-600 text-white text-[9px] px-1.5 py-0.5 rounded font-extrabold animate-pulse tracking-wider">URGENT</span>' : ''}
+                            ${q.name}
+                        </span>
+                        <span class="text-[11px] text-slate-400 block mt-0.5">${q.job || '-'}</span>
+                    </td>
+                    <td class="p-4">
+                        <span class="text-[11px] text-indigo-300 font-semibold block">${q.contact || '-'}</span>
+                        <span class="text-xs text-slate-400 truncate max-w-xs block mt-0.5">${q.desc || '-'}</span>
+                    </td>
+                    <td class="p-4 text-[11px] font-mono text-slate-300">${deadlineContent}</td>
+                    <td class="p-4">${payCellContent}</td>
+                    <td class="p-4">
+                        <span class="px-3 py-1 rounded-lg border text-[10px] font-bold ${getStatusCSSColors(q.status)}">
+                            ${q.status}
+                        </span>
+                    </td>
+                    <td class="p-4 text-center">
+                        <div class="flex items-center justify-center gap-1">
+                            <button onclick="viewQueueDetail('${q.id}')" class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/30 p-2 rounded-xl transition duration-150">
+                                <i class="fa-solid fa-eye text-xs"></i>
+                            </button>
+                            ${isAdminActive ? `
+                                <button onclick="editQueueRecord('${q.id}')" class="bg-amber-600/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/30 p-2 rounded-xl transition duration-150">
+                                    <i class="fa-solid fa-pen text-xs"></i>
+                                </button>
+                                <button onclick="archiveQueueRecord('${q.id}')" class="bg-emerald-600/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/30 p-2 rounded-xl transition duration-150">
+                                    <i class="fa-solid fa-box-archive text-xs"></i>
+                                </button>
+                                <button onclick="deleteQueueRecord('${q.id}')" class="bg-rose-600/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/30 p-2 rounded-xl transition duration-150">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getStatusCSSColors(st) {
+            switch (st) {
+                case 'รอเริ่มงาน': return 'bg-slate-800 border-slate-600 text-slate-300';
+                case 'กำลังดำเนินการ': return 'bg-indigo-950 border-indigo-700 text-indigo-300';
+                case 'เสร็จสิ้นแล้ว': return 'bg-emerald-950 border-emerald-700 text-emerald-300';
+                case 'ยกเลิกคิว': return 'bg-rose-950 border-rose-700 text-rose-300';
+                default: return 'bg-slate-800 border-slate-600 text-slate-400';
+            }
+        }
+
+        // Pagination buttons handlers
+        function goToPrevPage() { if (currentPage > 1) { currentPage--; renderQueueTable(); } }
+        function goToNextPage() { currentPage++; renderQueueTable(); }
+
+        // Login core
+        function submitAdminLogin() {
+            const val = document.getElementById('admin-password-input').value;
+            if (val === localData.password) {
+                isAdminActive = true;
+                sessionStorage.setItem('admin_session', 'true');
+                closeLoginModal();
+                checkAdminAccessibilityUI();
+                renderQueueTable();
+                alert(currentLang === 'th' ? "เข้าสู่ระบบแอดมินสำเร็จ!" : "Welcome back Admin!");
+            } else {
+                alert(currentLang === 'th' ? "รหัสผ่านไม่ถูกต้อง" : "Access Denied: Wrong Password");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminActive = false;
+            sessionStorage.removeItem('admin_session');
+            checkAdminAccessibilityUI();
+            renderQueueTable();
+        }
+
+        // Configuration updates
+        function openConfigModal() {
+            document.getElementById('cfg-site-name').value = localData.siteName || "";
+            document.getElementById('cfg-site-desc').value = localData.siteDesc || "";
+            document.getElementById('cfg-cover-url').value = localData.coverUrl || "";
+            document.getElementById('cfg-profile-url').value = localData.profileUrl || "";
+            document.getElementById('cfg-announcement').value = localData.announcement || "";
+            document.getElementById('cfg-queue-status').value = localData.queueStatus || "OPEN";
+            document.getElementById('cfg-tos').value = localData.tos || "";
+            document.getElementById('cfg-timeline').value = localData.timeline || "";
+
+            const soc = localData.socials || {};
+            document.getElementById('cfg-soc-fb').value = soc.fb || "";
+            document.getElementById('cfg-soc-ig').value = soc.ig || "";
+            document.getElementById('cfg-soc-line').value = soc.line || "";
+            document.getElementById('cfg-soc-x').value = soc.x || "";
+            document.getElementById('cfg-soc-vgen').value = soc.vgen || "";
+            document.getElementById('cfg-soc-da').value = soc.da || "";
+            document.getElementById('cfg-soc-discord').value = soc.discord || "";
+            document.getElementById('cfg-soc-tiktok').value = soc.tiktok || "";
+
+            const port = localData.portfolio || [];
+            document.getElementById('cfg-p1').value = port[0] || "";
+            document.getElementById('cfg-p2').value = port[1] || "";
+            document.getElementById('cfg-p3').value = port[2] || "";
+            document.getElementById('cfg-p4').value = port[3] || "";
+            document.getElementById('cfg-p5').value = port[4] || "";
+            document.getElementById('cfg-p6').value = port[5] || "";
+
+            document.getElementById('cfg-3d-speed').value = localData.speed3d || 20;
+            document.getElementById('cfg-payment-info').value = localData.paymentInfo || "";
+
+            document.getElementById('modal-config').classList.remove('hidden');
+        }
+
+        function closeConfigModal() { document.getElementById('modal-config').classList.add('hidden'); }
+
+        function updateAdminPassword() {
+            const v = document.getElementById('cfg-new-pass').value;
+            if (v.trim()) {
+                localData.password = v;
+                localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+                document.getElementById('cfg-new-pass').value = "";
+                alert(currentLang === 'th' ? "เปลี่ยนรหัสผ่านแล้ว!" : "Password successfully updated!");
+            }
+        }
+
+        function saveAllSettings() {
+            localData.siteName = document.getElementById('cfg-site-name').value;
+            localData.siteDesc = document.getElementById('cfg-site-desc').value;
+            localData.coverUrl = document.getElementById('cfg-cover-url').value;
+            localData.profileUrl = document.getElementById('cfg-profile-url').value;
+            localData.announcement = document.getElementById('cfg-announcement').value;
+            localData.queueStatus = document.getElementById('cfg-queue-status').value;
+            localData.tos = document.getElementById('cfg-tos').value;
+            localData.timeline = document.getElementById('cfg-timeline').value;
+
+            localData.socials = {
+                fb: document.getElementById('cfg-soc-fb').value,
+                ig: document.getElementById('cfg-soc-ig').value,
+                line: document.getElementById('cfg-soc-line').value,
+                x: document.getElementById('cfg-soc-x').value,
+                vgen: document.getElementById('cfg-soc-vgen').value,
+                da: document.getElementById('cfg-soc-da').value,
+                discord: document.getElementById('cfg-soc-discord').value,
+                tiktok: document.getElementById('cfg-soc-tiktok').value
+            };
+
+            localData.portfolio = [
+                document.getElementById('cfg-p1').value,
+                document.getElementById('cfg-p2').value,
+                document.getElementById('cfg-p3').value,
+                document.getElementById('cfg-p4').value,
+                document.getElementById('cfg-p5').value,
+                document.getElementById('cfg-p6').value
+            ];
+
+            localData.speed3d = parseInt(document.getElementById('cfg-3d-speed').value) || 20;
+            localData.paymentInfo = document.getElementById('cfg-payment-info').value;
+
+            localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+            closeConfigModal();
+            initializeApp();
+            alert(currentLang === 'th' ? "บันทึกการตั้งค่าแล้ว!" : "All configuration changes applied!");
+        }
+
+        // Add / Edit Queue
+        function openQueueFormModal() {
+            selectedQueueId = null;
+            document.getElementById('q-form-title').innerText = currentLang === 'th' ? "เพิ่มข้อมูลคิวงาน" : "Add New Queue";
+            document.getElementById('q-number').value = localData.queues.length + 1;
+            document.getElementById('q-customer').value = "";
+            document.getElementById('q-job').value = "";
+            document.getElementById('q-contact').value = "";
+            document.getElementById('q-desc').value = "";
+            document.getElementById('q-deadline').value = "";
+            document.getElementById('q-planning').value = "2026-05";
+            document.getElementById('q-price-total').value = "";
+            document.getElementById('q-price-deposit').value = "";
+            document.getElementById('q-price-balance').value = "0";
+            document.getElementById('q-status-select').value = "รอเริ่มงาน";
+            document.getElementById('q-is-urgent').checked = false;
+            document.getElementById('modal-queue').classList.remove('hidden');
+        }
+
+        function closeQueueFormModal() { document.getElementById('modal-queue').classList.add('hidden'); }
+
+        function submitQueueForm() {
+            const num = parseInt(document.getElementById('q-number').value) || 1;
+            const name = document.getElementById('q-customer').value;
+            const job = document.getElementById('q-job').value;
+            const contact = document.getElementById('q-contact').value;
+            const desc = document.getElementById('q-desc').value;
+            const date = document.getElementById('q-deadline').value;
+            const plan = document.getElementById('q-planning').value;
+            const price = parseFloat(document.getElementById('q-price-total').value) || 0;
+            const deposit = parseFloat(document.getElementById('q-price-deposit').value) || 0;
+            const balance = Math.max(0, price - deposit);
+            const status = document.getElementById('q-status-select').value;
+            const isUrgent = document.getElementById('q-is-urgent').checked;
+
+            if (!name) {
+                alert(currentLang === 'th' ? "กรุณากรอกชื่อลูกค้า" : "Please input client's name");
+                return;
+            }
+
+            if (selectedQueueId) {
+                const i = localData.queues.findIndex(x => x.id === selectedQueueId);
+                if (i !== -1) {
+                    localData.queues[i] = { ...localData.queues[i], number: num, name, job, contact, desc, date, plan, price, deposit, balance, status, isUrgent };
+                }
+            } else {
+                const rec = { id: Date.now().toString(), number: num, name, job, contact, desc, date, plan, price, deposit, balance, status, isUrgent, archived: false };
+                localData.queues.push(rec);
+            }
+
+            localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+            closeQueueFormModal();
+            calculateTotalRevenueDashboard();
+            renderQueueTable();
+        }
+
+        function editQueueRecord(id) {
+            selectedQueueId = id;
+            const q = localData.queues.find(itm => itm.id === id);
+            if (!q) return;
+
+            document.getElementById('q-form-title').innerText = currentLang === 'th' ? "แก้ไขข้อมูลคิวงาน" : "Edit Queue details";
+            document.getElementById('q-number').value = q.number || 1;
+            document.getElementById('q-customer').value = q.name || "";
+            document.getElementById('q-job').value = q.job || "";
+            document.getElementById('q-contact').value = q.contact || "";
+            document.getElementById('q-desc').value = q.desc || "";
+            document.getElementById('q-deadline').value = q.date || "";
+            document.getElementById('q-planning').value = q.plan || "2026-05";
+            document.getElementById('q-price-total').value = q.price || 0;
+            document.getElementById('q-price-deposit').value = q.deposit || 0;
+            document.getElementById('q-price-balance').value = q.balance || 0;
+            document.getElementById('q-status-select').value = q.status || "รอเริ่มงาน";
+            document.getElementById('q-is-urgent').checked = q.isUrgent || false;
+
+            document.getElementById('modal-queue').classList.remove('hidden');
+        }
+
+        function archiveQueueRecord(id) {
+            const q = localData.queues.find(itm => itm.id === id);
+            if (q) {
+                q.archived = !q.archived;
+                localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+                renderQueueTable();
+                calculateTotalRevenueDashboard();
+                alert(q.archived ? "เก็บเข้าคลังแล้ว" : "นำออกจากคลังเรียบร้อย");
+            }
+        }
+
+        function deleteQueueRecord(id) {
+            if (confirm(currentLang === 'th' ? "ยืนยันลบข้อมูลคิวงานนี้ถาวร?" : "Remove this queue record permanently?")) {
+                localData.queues = localData.queues.filter(itm => itm.id !== id);
+                localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+                renderQueueTable();
+                calculateTotalRevenueDashboard();
+            }
+        }
+
+        // Public Details modal
+        function viewQueueDetail(id) {
+            const q = localData.queues.find(itm => itm.id === id);
+            if (!q) return;
+
+            const box = document.getElementById('view-modal-content');
+            box.innerHTML = `
+                <div class="grid grid-cols-2 gap-y-3.5">
+                    <p class="font-bold text-slate-400">เลขคิว / Queue No:</p><p class="text-pink-400 font-bold font-mono">#${q.number}</p>
+                    <p class="font-bold text-slate-400">ผู้จอง / Name:</p><p class="text-white">${q.name}</p>
+                    <p class="font-bold text-slate-400">ประเภทงาน / Job Category:</p><p>${q.job || '-'}</p>
+                    <p class="font-bold text-slate-400">ช่องทางการติดต่อ:</p><p class="text-indigo-300 font-semibold">${q.contact || '-'}</p>
+                    <p class="font-bold text-slate-400">รายละเอียดงาน:</p><p class="whitespace-pre-wrap">${q.desc || '-'}</p>
+                    <p class="font-bold text-slate-400">เดดไลน์ / Deadline:</p><p class="font-mono text-emerald-400 font-semibold">${q.date || '-'}</p>
+                    <p class="font-bold text-slate-400">สถานะงาน / Status:</p><p><span class="px-3 py-1 rounded-lg border text-[10px] font-bold ${getStatusCSSColors(q.status)}">${q.status}</span></p>
+                    ${isAdminActive ? `
+                    <p class="font-bold text-amber-400">ราคางานรวม:</p><p class="text-amber-400 font-bold">฿${q.price}</p>
+                    <p class="font-bold text-amber-400">มัดจำแล้ว:</p><p class="text-amber-400 font-bold">฿${q.deposit}</p>
+                    <p class="font-bold text-amber-400">ยอดคงเหลือ:</p><p class="text-amber-400 font-bold">฿${q.balance}</p>
+                    ` : ''}
+                </div>
+            `;
+            document.getElementById('modal-detail-view').classList.remove('hidden');
+        }
+
+        function closeDetailModal() { document.getElementById('modal-detail-view').classList.add('hidden'); }
+
+        // Core Admin Calculations
+        function calculateTotalRevenueDashboard() {
+            const n = new Date();
+            const curY = n.getFullYear().toString();
+            const curM = (n.getMonth() + 1).toString().padStart(2, '0');
+
+            let totM = 0;
+            let totY = 0;
+            let totArchived = 0;
+
+            localData.queues.forEach(q => {
+                if (q.status === 'เสร็จสิ้นแล้ว' && q.price > 0) {
+                    const d = new Date(q.date);
+                    const qY = d.getFullYear().toString();
+                    const qM = (d.getMonth() + 1).toString().padStart(2, '0');
+
+                    if (q.archived) {
+                        totArchived += q.price;
+                    } else {
+                        if (qY === curY) {
+                            totY += q.price;
+                            if (qM === curM) totM += q.price;
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('rev-val-month').innerText = `฿${totM.toLocaleString()}`;
+            document.getElementById('rev-val-year').innerText = `฿${totY.toLocaleString()}`;
+            document.getElementById('rev-val-archive').innerText = `฿${totArchived.toLocaleString()}`;
+        }
+
+        // Theme choices loaders
+        function loadPresetsInGrid() {
+            const box = document.getElementById('theme-presets-grid');
+            box.innerHTML = "";
+            for (const [key, v] of Object.entries(THEME_PRESET_COLORS)) {
+                const btn = document.createElement('button');
+                btn.className = "w-full h-9 rounded-xl border border-slate-800 flex items-center justify-center text-xs font-extrabold text-white hover:scale-105 duration-150 transition capitalize shadow";
+                btn.style.backgroundColor = v.primary;
+                btn.innerText = key;
+                btn.onclick = () => selectColorInPalette(key);
+                box.appendChild(btn);
+            }
+        }
+
+        function selectColorInPalette(k) {
+            const p = THEME_PRESET_COLORS[k];
+            if (p) {
+                document.getElementById('thm-manual-p-color').value = p.primary;
+                document.getElementById('thm-manual-s-color').value = p.secondary;
+                localData.theme.preset = k;
+            }
+        }
+
+        function applyVisualTheme() {
+            localData.theme.bgEffect = document.getElementById('thm-effect-select').value;
+            localData.theme.primary = document.getElementById('thm-manual-p-color').value;
+            localData.theme.secondary = document.getElementById('thm-manual-s-color').value;
+
+            localStorage.setItem('premium_queue_data', JSON.stringify(localData));
+            closeThemeModal();
+            applyThemeColorsAndEffects();
+            alert(currentLang === 'th' ? "บันทึกการปรับแต่งธีมแล้ว!" : "Visual Theme settings applied!");
+        }
+
+        function applyThemeColorsAndEffects() {
+            const th = localData.theme || {};
+            const eff = th.bgEffect || 'none';
+            const body = document.getElementById('main-layout');
+
+            document.documentElement.style.setProperty('--tw-color-pink-500', th.primary || '#ec4899');
+
+            body.className = "text-slate-100 min-h-screen relative overflow-x-hidden transition-all duration-300 select-none";
+            if (eff !== 'none' && eff !== 'bg-effect-stars' && eff !== 'bg-effect-dots' && eff !== 'bg-effect-grid') {
+                body.classList.add(eff);
+                body.style.backgroundColor = "";
+            } else if (eff === 'bg-effect-stars' || eff === 'bg-effect-dots' || eff === 'bg-effect-grid') {
+                body.classList.add(eff);
+                body.style.backgroundColor = th.secondary || '#0f172a';
+            } else {
+                body.style.backgroundColor = th.secondary || '#0f172a';
+            }
+        }
+
+        window.onload = initializeApp;
+    </script>
+</body>
+</html>
